@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>README</title>
+      <style>.markdown-preview { font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size: 14px; line-height: 1.6; overflow: scroll; box-sizing: border-box; padding: 20px; background-color: rgb(255, 255, 255); }
+.markdown-preview code { color: rgb(51, 51, 51); }
+.markdown-preview code, .markdown-preview tt, .markdown-preview pre.editor-colors { font-size: 12px; font-family: Consolas, 'Liberation Mono', Courier, monospace; }
+.markdown-preview a, .markdown-preview a code { color: rgb(65, 131, 196); }
+.markdown-preview ol > li { list-style-type: decimal; }
+.markdown-preview ul > li { list-style-type: disc; }
+.markdown-preview li > pre.editor-colors { display: inline-block; vertical-align: top; width: 100%; }
+.markdown-preview li:last-child > pre.editor-colors { margin-bottom: 0px; }
+.markdown-preview > :first-child { margin-top: 0px !important; }
+.markdown-preview > :last-child { margin-bottom: 0px !important; }
+.markdown-preview a.absent { color: rgb(204, 0, 0); }
+.markdown-preview a.anchor { display: block; padding-left: 30px; margin-left: -30px; cursor: pointer; position: absolute; top: 0px; left: 0px; bottom: 0px; }
+.markdown-preview h1, .markdown-preview h2, .markdown-preview h3, .markdown-preview h4, .markdown-preview h5, .markdown-preview h6 { font-family: 'Helvetica Neue', Helvetica, sans-serif; margin: 20px 0px 10px; padding: 0px 0px 10px; font-weight: bold; -webkit-font-smoothing: antialiased; cursor: text; position: relative; }
+.markdown-preview h1 .octicon-link, .markdown-preview h2 .octicon-link, .markdown-preview h3 .octicon-link, .markdown-preview h4 .octicon-link, .markdown-preview h5 .octicon-link, .markdown-preview h6 .octicon-link { display: none; color: rgb(0, 0, 0); }
+.markdown-preview h1:hover a.anchor, .markdown-preview h2:hover a.anchor, .markdown-preview h3:hover a.anchor, .markdown-preview h4:hover a.anchor, .markdown-preview h5:hover a.anchor, .markdown-preview h6:hover a.anchor { text-decoration: none; line-height: 1; padding-left: 0px; margin-left: -22px; top: 15%; }
+.markdown-preview h1:hover a.anchor .octicon-link, .markdown-preview h2:hover a.anchor .octicon-link, .markdown-preview h3:hover a.anchor .octicon-link, .markdown-preview h4:hover a.anchor .octicon-link, .markdown-preview h5:hover a.anchor .octicon-link, .markdown-preview h6:hover a.anchor .octicon-link { display: inline-block; }
+.markdown-preview h1 tt, .markdown-preview h2 tt, .markdown-preview h3 tt, .markdown-preview h4 tt, .markdown-preview h5 tt, .markdown-preview h6 tt, .markdown-preview h1 code, .markdown-preview h2 code, .markdown-preview h3 code, .markdown-preview h4 code, .markdown-preview h5 code, .markdown-preview h6 code { font-size: inherit; }
+.markdown-preview h1 { font-size: 28px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(221, 221, 221); color: rgb(0, 0, 0); }
+.markdown-preview h2 { font-size: 24px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(238, 238, 238); color: rgb(0, 0, 0); }
+.markdown-preview h3 { font-size: 18px; }
+.markdown-preview h4 { font-size: 16px; }
+.markdown-preview h5 { font-size: 14px; }
+.markdown-preview h6 { color: rgb(119, 119, 119); font-size: 14px; }
+.markdown-preview p, .markdown-preview blockquote, .markdown-preview ul, .markdown-preview ol, .markdown-preview dl, .markdown-preview table, .markdown-preview pre.editor-colors { margin: 15px 0px; }
+.markdown-preview hr { border: 0px none; color: rgb(204, 204, 204); height: 4px; padding: 0px; margin: 15px 0px; background: url('data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC') 0px 0px repeat-x transparent; }
+.markdown-preview > h2:first-child, .markdown-preview > h1:first-child, .markdown-preview > h1:first-child + h2, .markdown-preview > h3:first-child, .markdown-preview > h4:first-child, .markdown-preview > h5:first-child, .markdown-preview > h6:first-child { margin-top: 0px; padding-top: 0px; }
+.markdown-preview a:first-child h1, .markdown-preview a:first-child h2, .markdown-preview a:first-child h3, .markdown-preview a:first-child h4, .markdown-preview a:first-child h5, .markdown-preview a:first-child h6 { margin-top: 0px; padding-top: 0px; }
+.markdown-preview h1 + p, .markdown-preview h2 + p, .markdown-preview h3 + p, .markdown-preview h4 + p, .markdown-preview h5 + p, .markdown-preview h6 + p { margin-top: 0px; }
+.markdown-preview li p.first { display: inline-block; }
+.markdown-preview ul, .markdown-preview ol { padding-left: 30px; }
+.markdown-preview ul.no-list, .markdown-preview ol.no-list { list-style-type: none; padding: 0px; }
+.markdown-preview ul li > :first-child, .markdown-preview ol li > :first-child, .markdown-preview ul li ul:first-of-type, .markdown-preview ol li ul:first-of-type { margin-top: 0px; }
+.markdown-preview ul ul, .markdown-preview ul ol, .markdown-preview ol ol, .markdown-preview ol ul { margin-bottom: 0px; }
+.markdown-preview dl { padding: 0px; }
+.markdown-preview dl dt { font-size: 14px; font-weight: bold; font-style: italic; padding: 0px; margin: 15px 0px 5px; }
+.markdown-preview dl dt:first-child { padding: 0px; }
+.markdown-preview dl dt > :first-child { margin-top: 0px; }
+.markdown-preview dl dt > :last-child { margin-bottom: 0px; }
+.markdown-preview dl dd { margin: 0px 0px 15px; padding: 0px 15px; }
+.markdown-preview dl dd > :first-child { margin-top: 0px; }
+.markdown-preview dl dd > :last-child { margin-bottom: 0px; }
+.markdown-preview blockquote { border-left-width: 4px; border-left-style: solid; border-left-color: rgb(221, 221, 221); padding: 0px 15px; color: rgb(119, 119, 119); }
+.markdown-preview blockquote > :first-child { margin-top: 0px; }
+.markdown-preview blockquote > :last-child { margin-bottom: 0px; }
+.markdown-preview blockquote p { font-size: 16px; line-height: 1.5; }
+.markdown-preview table th { font-weight: bold; }
+.markdown-preview table th, .markdown-preview table td { border: 1px solid rgb(204, 204, 204); padding: 6px 13px; }
+.markdown-preview table tr { border-top-width: 1px; border-top-style: solid; border-top-color: rgb(204, 204, 204); background-color: rgb(255, 255, 255); }
+.markdown-preview table tr:nth-child(2n) { background-color: rgb(248, 248, 248); }
+.markdown-preview img { max-width: 100%; }
+.markdown-preview span.frame { display: block; overflow: hidden; }
+.markdown-preview span.frame > span { border: 1px solid rgb(221, 221, 221); display: block; float: left; overflow: hidden; margin: 13px 0px 0px; padding: 7px; width: auto; }
+.markdown-preview span.frame span img { display: block; float: left; }
+.markdown-preview span.frame span span { clear: both; color: rgb(51, 51, 51); display: block; padding: 5px 0px 0px; }
+.markdown-preview span.align-center { display: block; overflow: hidden; clear: both; }
+.markdown-preview span.align-center > span { display: block; overflow: hidden; margin: 13px auto 0px; text-align: center; }
+.markdown-preview span.align-center span img { margin: 0px auto; text-align: center; }
+.markdown-preview span.align-right { display: block; overflow: hidden; clear: both; }
+.markdown-preview span.align-right > span { display: block; overflow: hidden; margin: 13px 0px 0px; text-align: right; }
+.markdown-preview span.align-right span img { margin: 0px; text-align: right; }
+.markdown-preview span.float-left { display: block; margin-right: 13px; overflow: hidden; float: left; }
+.markdown-preview span.float-left span { margin: 13px 0px 0px; }
+.markdown-preview span.float-right { display: block; margin-left: 13px; overflow: hidden; float: right; }
+.markdown-preview span.float-right > span { display: block; overflow: hidden; margin: 13px auto 0px; text-align: right; }
+.markdown-preview code, .markdown-preview tt { margin: 0px 2px; padding: 0px 5px; border: 1px solid rgb(234, 234, 234); border-radius: 3px; text-shadow: none; background-color: rgb(248, 248, 248); }
+.markdown-preview code { white-space: nowrap; }
+.markdown-preview pre.editor-colors { font-size: 13px; line-height: 19px; overflow: auto; padding: 6px 10px; border-radius: 3px; border: 1px solid rgb(224, 224, 225); background: rgb(250, 250, 250); }
+.markdown-preview kbd { border-radius: 2px; border-width: 1px; border-style: solid; border-color: rgb(221, 221, 221) rgb(204, 204, 204) rgb(204, 204, 204) rgb(221, 221, 221); padding: 1px 4px; line-height: 10px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-image: linear-gradient(rgb(241, 241, 241), rgb(221, 221, 221)); background-color: rgb(221, 221, 221); background-repeat: repeat-x; }
+.markdown-preview .emoji { height: 20px; width: 20px; }
+</style>
+  </head>
+  <body class='markdown-preview'><h1 id="awkword-a-word-game">AwkWord: A word game</h1>
+<p>A simple and straightforward word game at <a href="">main.html</a></p>
+<h2 id="rules">Rules</h2>
+<p>Score the highest possible score you can by making words with the given letters in the time allotted.</p>
+<p>Challenge your friends by making a common seed and seeing how far you can get from that seed. The letters are deterministically generated from each seed, but randomly generated if no seed is provided.</p>
+<p>Letters are not reused once a valid word has been made with them so be strategic.</p>
+<h2 id="controls">Controls</h2>
+<h3 id="game-state">Game State</h3>
+<p><strong>Esc</strong> will pause the game for you, as will clicking the <strong>pause button</strong>. You can end the game from there and restart.</p>
+<h3 id="choosing-letters">Choosing Letters</h3>
+<p>You can pick letters by either <strong>clicking</strong> on the letters you want to move, or by <strong>typing</strong> in the letters that you want.</p>
+<p><strong>Backspace</strong> functionality exists, but is tricky, since backspace is also mapped to &quot;back&quot; in most browsers. Not recommended to use it, but ⌘+delete will work for Mac if necessary.</p>
+<p><strong>Enter</strong> will send the string of letters you typed to be verified by the dictionary. If the string is a word, you&#39;ll get points, otherwise the letters will return to your hand.</p>
+<h3 id="your-letters">Your Letters</h3>
+<p><strong>Space</strong> or the <strong>shuffle button</strong> will shuffle your letters for you, so you can get a new perspective on your hand.</p>
+<p>If your hand is completely hopeless, you can click <strong>ReRoll button</strong> to generate a completely new set of letters. Be careful though, you lose points for rerolling.</p>
+<h2 id="ravi-mode">Ravi Mode</h2>
+<p><a href="">mainRavi.html</a> will direct you to the Ravi Mode version of the game. Self-explanatory.</p></body>
+</html>
