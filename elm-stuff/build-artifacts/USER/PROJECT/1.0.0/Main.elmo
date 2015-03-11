@@ -1,0 +1,61 @@
+Elm.Main = Elm.Main || {};
+Elm.Main.make = function (_elm) {
+   "use strict";
+   _elm.Main = _elm.Main || {};
+   if (_elm.Main.values)
+   return _elm.Main.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   _P = _N.Ports.make(_elm),
+   $moduleName = "Main",
+   $Basics = Elm.Basics.make(_elm),
+   $Color = Elm.Color.make(_elm),
+   $Easing = Elm.Easing.make(_elm),
+   $Graphics$Element = Elm.Graphics.Element.make(_elm),
+   $Graphics$Input = Elm.Graphics.Input.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $Text = Elm.Text.make(_elm),
+   $Time = Elm.Time.make(_elm);
+   var animation = A5($Easing.ease,
+   $Easing.easeInQuad,
+   $Easing.$float,
+   200,
+   100,
+   $Time.second);
+   var click = $Signal.channel(false);
+   var display = F3(function (doAnim,
+   initialTime,
+   curTime) {
+      return function () {
+         var dim = doAnim ? $Basics.truncate(animation(curTime - initialTime)) : 200;
+         return A2($Graphics$Element.flow,
+         $Graphics$Element.down,
+         _L.fromArray([A2($Graphics$Input.button,
+                      A2($Signal.send,click,true),
+                      "Click me!")
+                      ,$Graphics$Element.color($Color.blue)(A3($Graphics$Element.container,
+                      dim,
+                      dim,
+                      $Graphics$Element.middle)($Text.plainText("hello world")))]));
+      }();
+   });
+   var main = A2($Signal._op["~"],
+   A2($Signal._op["~"],
+   A2($Signal._op["<~"],
+   display,
+   $Signal.subscribe(click)),
+   A2($Signal._op["<~"],
+   $Basics.fst,
+   $Time.timestamp($Signal.subscribe(click)))),
+   A2($Signal._op["<~"],
+   $Basics.fst,
+   $Time.timestamp($Time.fps(60))));
+   _elm.Main.values = {_op: _op
+                      ,main: main
+                      ,click: click
+                      ,display: display
+                      ,animation: animation};
+   return _elm.Main.values;
+};

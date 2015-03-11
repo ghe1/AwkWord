@@ -1,0 +1,11 @@
+ghe1 - George He
+
+I have accomplished making a very simple word game that takes keyboard inputs and detects if a word has been made or not. From the beginning to final project, the order of functionalities built include: dictionary creation, dictionary querying, user seed/character generation, character/vowel balancing, user input, user string verification, animations, and various state functionality.
+
+Animation was particularly tricky to implement, but also very rewarding once done properly. The easing package helped to make the animation move smoothly once I figured out how to place the tiles in their proper places, and it is an incredibly straightforward way to animate forms that can only really be done with FRP.
+
+Much of the user state generation (i.e. keeping track of score and characters and input strings, etc.) was made incredibly easy with Elm and FRP as opposed to most other iterative languages. Specifically, since all the values were assumed to be immutable, it was a simple manner of simply updating the current values of the user state. In addition, the multitude of packages available helped make complicated things like animation very simple to implement in the functional way.
+
+Elm-reactor and the time-travelling debugger also proved to be invaluable tools to figuring out why particular bits of code acted the way the did. Specifically, the Debug package helped to show the real-time changes of variables.
+
+Ultimately, the project was very fun to implement, and I'm especially proud that all of the functionality and animations were built in such a way that they were independent of whatever was being shown on the screen. Hence, "Ravi mode" was just a simple manner of changing the input images used to pictures of Professor Chugh, and everything else just fell into place. This kind of generality is certainly something that Elm can be particularly useful for. 

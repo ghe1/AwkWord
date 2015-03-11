@@ -1,0 +1,641 @@
+Elm.Viewing = Elm.Viewing || {};
+Elm.Viewing.make = function (_elm) {
+   "use strict";
+   _elm.Viewing = _elm.Viewing || {};
+   if (_elm.Viewing.values)
+   return _elm.Viewing.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   _P = _N.Ports.make(_elm),
+   $moduleName = "Viewing",
+   $Basics = Elm.Basics.make(_elm),
+   $Char = Elm.Char.make(_elm),
+   $Color = Elm.Color.make(_elm),
+   $Defs = Elm.Defs.make(_elm),
+   $Easing = Elm.Easing.make(_elm),
+   $Graphics$Collage = Elm.Graphics.Collage.make(_elm),
+   $Graphics$Element = Elm.Graphics.Element.make(_elm),
+   $Graphics$Input = Elm.Graphics.Input.make(_elm),
+   $Graphics$Input$Field = Elm.Graphics.Input.Field.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $String = Elm.String.make(_elm),
+   $Text = Elm.Text.make(_elm),
+   $Time = Elm.Time.make(_elm),
+   $Words = Elm.Words.make(_elm);
+   var seedField = function (content) {
+      return $Graphics$Element.flow($Graphics$Element.right)(_L.fromArray([A4($Graphics$Input$Field.field,
+      $Graphics$Input$Field.defaultStyle,
+      $Signal.send($Defs.seed),
+      "Seed",
+      content)]));
+   };
+   var mkBtn = F2(function (col,
+   t) {
+      return function () {
+         var btnH = 60;
+         var btnW = 200;
+         var lineStyle = function () {
+            var ls = $Graphics$Collage.defaultLine;
+            return _U.replace([["color"
+                               ,$Color.darkCharcoal]
+                              ,["width",10]],
+            ls);
+         }();
+         return A3($Graphics$Collage.collage,
+         btnW,
+         btnH,
+         _L.fromArray([A2($Graphics$Collage.filled,
+                      col,
+                      A2($Graphics$Collage.rect,
+                      btnW,
+                      btnH))
+                      ,A2($Graphics$Collage.outlined,
+                      lineStyle,
+                      A2($Graphics$Collage.rect,
+                      btnW,
+                      btnH))
+                      ,$Graphics$Collage.toForm($Text.centered($Text.height(30)($Text.fromString(t))))]));
+      }();
+   });
+   var btnMkr = F2(function (sig,
+   str) {
+      return A4($Graphics$Input.customButton,
+      sig,
+      A2(mkBtn,$Color.orange,str),
+      A2(mkBtn,$Color.red,str),
+      A2(mkBtn,$Color.yellow,str));
+   });
+   var beginButtons = function (content) {
+      return A2(btnMkr,
+      A2($Signal.send,
+      $Defs.gameplay,
+      $Defs.Start(content.string)),
+      "Start");
+   };
+   var runButtons = function (_v0) {
+      return function () {
+         switch (_v0.ctor)
+         {case "Running":
+            return function () {
+                 var hspace = A2($Graphics$Element.spacer,
+                 10,
+                 10);
+                 return $Graphics$Element.flow($Graphics$Element.right)($List.intersperse(hspace)(_L.fromArray([A2(btnMkr,
+                                                                                                               A2($Signal.send,
+                                                                                                               $Defs.gameplay,
+                                                                                                               $Defs.Pause),
+                                                                                                               "Pause")
+                                                                                                               ,A2(btnMkr,
+                                                                                                               A2($Signal.send,
+                                                                                                               $Defs.gameplay,
+                                                                                                               $Defs.Enter($String.fromList(_v0._1))),
+                                                                                                               "Enter")
+                                                                                                               ,A2(btnMkr,
+                                                                                                               A2($Signal.send,
+                                                                                                               $Defs.gameplay,
+                                                                                                               $Defs.Shuffle),
+                                                                                                               "Shuffle")
+                                                                                                               ,A2(btnMkr,
+                                                                                                               A2($Signal.send,
+                                                                                                               $Defs.gameplay,
+                                                                                                               $Defs.Reroll),
+                                                                                                               "ReRoll")])));
+              }();}
+         _U.badCase($moduleName,
+         "between lines 171 and 180");
+      }();
+   };
+   var pauseButtons = function (_v4) {
+      return function () {
+         switch (_v4.ctor)
+         {case "Paused":
+            return function () {
+                 var hspace = A2($Graphics$Element.spacer,
+                 10,
+                 10);
+                 return $Graphics$Element.flow($Graphics$Element.right)($List.intersperse(hspace)(_L.fromArray([A2(btnMkr,
+                                                                                                               A2($Signal.send,
+                                                                                                               $Defs.gameplay,
+                                                                                                               $Defs.Play),
+                                                                                                               "Play")
+                                                                                                               ,A2(btnMkr,
+                                                                                                               A2($Signal.send,
+                                                                                                               $Defs.gameplay,
+                                                                                                               $Defs.Done(_v4._0)),
+                                                                                                               "End")])));
+              }();}
+         _U.badCase($moduleName,
+         "between lines 213 and 220");
+      }();
+   };
+   var endButtons = function () {
+      var hspace = A2($Graphics$Element.spacer,
+      10,
+      10);
+      return $Graphics$Element.flow($Graphics$Element.right)($List.intersperse(hspace)(_L.fromArray([A2(btnMkr,
+      A2($Signal.send,
+      $Defs.gameplay,
+      $Defs.Again),
+      "Again")])));
+   }();
+   var ravimg = function (c) {
+      return $Graphics$Input.clickable(A2($Signal.send,
+      $Defs.gameplay,
+      $Defs.Key($Char.toCode(c))))($Graphics$Element.layers(_L.fromArray([A3($Graphics$Element.image,
+                                                                         60,
+                                                                         120,
+                                                                         "imgs/ravi.png ")
+                                                                         ,$Graphics$Element.opacity(0.6)(A3($Graphics$Element.image,
+                                                                         60,
+                                                                         120,
+                                                                         A2($Basics._op["++"],
+                                                                         "imgs/alpha/",
+                                                                         A2($Basics._op["++"],
+                                                                         $String.fromChar(c),
+                                                                         ".png"))))])));
+   };
+   var toimg = function (c) {
+      return $Words.ravi && !_U.eq(c,
+      _U.chr("0")) ? ravimg(c) : _U.eq(c,
+      _U.chr("0")) ? A2($Graphics$Element.spacer,
+      60,
+      120) : $Graphics$Input.clickable(A2($Signal.send,
+      $Defs.gameplay,
+      $Defs.Key($Char.toCode(c))))(A3($Graphics$Element.image,
+      60,
+      120,
+      A2($Basics._op["++"],
+      "imgs/alpha/",
+      A2($Basics._op["++"],
+      $String.fromChar(c),
+      ".png"))));
+   };
+   var render_chars = F2(function (_v8,
+   cs) {
+      return function () {
+         switch (_v8.ctor)
+         {case "_Tuple2":
+            return function () {
+                 var vspace = A2($Graphics$Element.spacer,
+                 20,
+                 20);
+                 var es = A2($List.map,toimg,cs);
+                 var es$ = A2($List.append,
+                 es,
+                 $List.repeat($Words.nletters - $List.length(es))(A2($Graphics$Element.spacer,
+                 60,
+                 120)));
+                 return A3($Graphics$Element.container,
+                 _v8._0 - 5,
+                 120,
+                 $Graphics$Element.midTop)($Graphics$Element.flow($Graphics$Element.right)(A2($List.intersperse,
+                 vspace,
+                 es$)));
+              }();}
+         _U.badCase($moduleName,
+         "between lines 201 and 208");
+      }();
+   });
+   var gameColor = $Color.lightBlue;
+   var view_running = F3(function (_v12,
+   _v13,
+   gp) {
+      return function () {
+         switch (_v13.ctor)
+         {case "_Tuple2":
+            switch (_v13._1.ctor)
+              {case "Running":
+                 return function () {
+                      switch (_v12.ctor)
+                      {case "_Tuple2":
+                         return function () {
+                              var tcolor = _U.cmp(_v13._1._0,
+                              10) < 0 ? $Color.red : $Color.black;
+                              return A3($Graphics$Collage.collage,
+                              _v12._0 - 1,
+                              _v12._1 - 1,
+                              _L.fromArray([$Graphics$Collage.filled(gameColor)(A2($Graphics$Collage.rect,
+                                           $Basics.toFloat(_v12._0),
+                                           $Basics.toFloat(_v12._1)))
+                                           ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                   ,_0: $Basics.toFloat((0 - _v12._0) / 2 | 0) + 100
+                                                                   ,_1: $Basics.toFloat(_v12._1 / 2 | 0) - 50})($Graphics$Collage.toForm(A3($Graphics$Element.image,
+                                           210,
+                                           70,
+                                           "imgs/title.png")))
+                                           ,$Graphics$Collage.toForm(runButtons(A2($Defs.Running,
+                                           _v13._1._0,
+                                           _v13._1._1)))
+                                           ,$Graphics$Collage.moveY(200)($Graphics$Collage.toForm(A2(render_chars,
+                                           {ctor: "_Tuple2"
+                                           ,_0: _v12._0
+                                           ,_1: _v12._1},
+                                           _v13._0.chars)))
+                                           ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                   ,_0: -100
+                                                                   ,_1: 70})($Graphics$Collage.toForm($Text.centered($Text.height(30)($Text.color(tcolor)($Text.fromString(A2($Basics._op["++"],
+                                           "Time: ",
+                                           $Basics.toString(_v13._1._0))))))))
+                                           ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                   ,_0: 100
+                                                                   ,_1: 70})($Graphics$Collage.toForm($Text.centered($Text.height(30)($Text.fromString(A2($Basics._op["++"],
+                                           "Score: ",
+                                           $Basics.toString(_v13._0.score)))))))
+                                           ,$Graphics$Collage.moveY(-200)($Graphics$Collage.toForm(A2(render_chars,
+                                           {ctor: "_Tuple2"
+                                           ,_0: _v12._0
+                                           ,_1: _v12._1},
+                                           $List.reverse(_v13._1._1))))]));
+                           }();}
+                      _U.badCase($moduleName,
+                      "between lines 184 and 196");
+                   }();}
+              break;}
+         _U.badCase($moduleName,
+         "between lines 184 and 196");
+      }();
+   });
+   var view_begin = F4(function (_v22,
+   _v23,
+   gp,
+   ct) {
+      return function () {
+         switch (_v23.ctor)
+         {case "_Tuple2":
+            switch (_v23._1.ctor)
+              {case "Begin":
+                 return function () {
+                      switch (_v22.ctor)
+                      {case "_Tuple2":
+                         return A3($Graphics$Collage.collage,
+                           _v22._0 - 1,
+                           _v22._1 - 1,
+                           _L.fromArray([$Graphics$Collage.toForm(A3(view_running,
+                                        {ctor: "_Tuple2"
+                                        ,_0: _v22._0
+                                        ,_1: _v22._1},
+                                        {ctor: "_Tuple2"
+                                        ,_0: _v23._0
+                                        ,_1: A2($Defs.Running,
+                                        0,
+                                        _L.fromArray([]))},
+                                        gp))
+                                        ,$Graphics$Collage.alpha(0.95)($Graphics$Collage.filled(gameColor)(A2($Graphics$Collage.rect,
+                                        $Basics.toFloat(_v22._0),
+                                        $Basics.toFloat(_v22._1))))
+                                        ,$Graphics$Collage.moveY($Basics.toFloat(_v22._1 / 4 | 0))($Graphics$Collage.toForm(A3($Graphics$Element.image,
+                                        600,
+                                        200,
+                                        "imgs/title.png")))
+                                        ,$Graphics$Collage.moveY(-20)($Graphics$Collage.toForm(beginButtons(ct)))
+                                        ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                ,_0: -105
+                                                                ,_1: -20})($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                  ,_0: $Basics.toFloat(_v22._0 / 2 | 0)
+                                                                                                  ,_1: $Basics.toFloat(_v22._1 / 2 | 0)})($Graphics$Collage.toForm(seedField(ct))))]));}
+                      _U.badCase($moduleName,
+                      "between lines 84 and 90");
+                   }();}
+              break;}
+         _U.badCase($moduleName,
+         "between lines 84 and 90");
+      }();
+   });
+   var view_paused = F2(function (_v30,
+   _v31) {
+      return function () {
+         switch (_v31.ctor)
+         {case "_Tuple2":
+            switch (_v31._1.ctor)
+              {case "Paused":
+                 return function () {
+                      switch (_v30.ctor)
+                      {case "_Tuple2":
+                         return A3($Graphics$Collage.collage,
+                           _v30._0 - 1,
+                           _v30._1 - 1,
+                           _L.fromArray([$Graphics$Collage.toForm(A3(view_running,
+                                        {ctor: "_Tuple2"
+                                        ,_0: _v30._0
+                                        ,_1: _v30._1},
+                                        {ctor: "_Tuple2"
+                                        ,_0: _v31._0
+                                        ,_1: A2($Defs.Running,
+                                        0,
+                                        _L.fromArray([]))},
+                                        $Defs.Done(0)))
+                                        ,$Graphics$Collage.alpha(0.95)($Graphics$Collage.filled(gameColor)(A2($Graphics$Collage.rect,
+                                        $Basics.toFloat(_v30._0),
+                                        $Basics.toFloat(_v30._1))))
+                                        ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                ,_0: $Basics.toFloat((0 - _v30._0) / 2 | 0) + 100
+                                                                ,_1: $Basics.toFloat(_v30._1 / 2 | 0) - 50})($Graphics$Collage.toForm(A3($Graphics$Element.image,
+                                        210,
+                                        70,
+                                        "imgs/title.png")))
+                                        ,$Graphics$Collage.moveY(170)($Graphics$Collage.toForm($Text.centered($Text.height(50)($Text.fromString("Paused")))))
+                                        ,$Graphics$Collage.moveY(50)($Graphics$Collage.toForm($Text.centered($Text.height(30)($Text.fromString(A2($Basics._op["++"],
+                                        "Score: ",
+                                        $Basics.toString(_v31._0.score)))))))
+                                        ,$Graphics$Collage.moveY(-20)($Graphics$Collage.toForm(pauseButtons(A2($Defs.Paused,
+                                        _v31._1._0,
+                                        _v31._1._1))))]));}
+                      _U.badCase($moduleName,
+                      "between lines 224 and 231");
+                   }();}
+              break;}
+         _U.badCase($moduleName,
+         "between lines 224 and 231");
+      }();
+   });
+   var view_end = F2(function (_v40,
+   _v41) {
+      return function () {
+         switch (_v41.ctor)
+         {case "_Tuple2":
+            switch (_v41._1.ctor)
+              {case "End":
+                 return function () {
+                      switch (_v40.ctor)
+                      {case "_Tuple2":
+                         return function () {
+                              var endmsg = _U.eq(_v41._1._0,
+                              0) ? $Text.centered($Text.height(50)($Text.fromString("Time\'s up!"))) : $Text.centered($Text.height(50)($Text.fromString(":-( Try again!")));
+                              return A3($Graphics$Collage.collage,
+                              _v40._0 - 1,
+                              _v40._1 - 1,
+                              _L.fromArray([$Graphics$Collage.filled(gameColor)(A2($Graphics$Collage.rect,
+                                           $Basics.toFloat(_v40._0),
+                                           $Basics.toFloat(_v40._1)))
+                                           ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                   ,_0: $Basics.toFloat((0 - _v40._0) / 2 | 0) + 100
+                                                                   ,_1: $Basics.toFloat(_v40._1 / 2 | 0) - 50})($Graphics$Collage.toForm(A3($Graphics$Element.image,
+                                           210,
+                                           70,
+                                           "imgs/title.png")))
+                                           ,$Graphics$Collage.moveY(70)($Graphics$Collage.toForm($Text.centered($Text.height(30)($Text.fromString(A2($Basics._op["++"],
+                                           "Score: ",
+                                           $Basics.toString(_v41._0.score)))))))
+                                           ,$Graphics$Collage.moveY(170)($Graphics$Collage.toForm(endmsg))
+                                           ,$Graphics$Collage.toForm(endButtons)]));
+                           }();}
+                      _U.badCase($moduleName,
+                      "between lines 246 and 258");
+                   }();}
+              break;}
+         _U.badCase($moduleName,
+         "between lines 246 and 258");
+      }();
+   });
+   var animateFast = F2(function (start,
+   end) {
+      return A5($Easing.ease,
+      $Easing.easeInQuad,
+      $Easing.point2d,
+      start,
+      end,
+      200 * $Time.millisecond);
+   });
+   var rmap = F5(function (fpstm,
+   clicktm,
+   from,
+   to,
+   f) {
+      return function () {
+         var xy = $Defs.ptToTuple(A3(animateFast,
+         $Defs.tupleToPt({ctor: "_Tuple2"
+                         ,_0: -240.0 + $Basics.toFloat(from) * 80.0
+                         ,_1: 200.0}),
+         $Defs.tupleToPt({ctor: "_Tuple2"
+                         ,_0: -240.0 + 80.0 * $Basics.toFloat(to)
+                         ,_1: -200.0}),
+         fpstm - clicktm));
+         return A2($Graphics$Collage.move,
+         xy,
+         f);
+      }();
+   });
+   var charForms_mv = F5(function (fpstm,
+   clicktm,
+   ch,
+   endIndex,
+   chs) {
+      return function () {
+         var findi = F3(function (c,
+         ls,
+         acc) {
+            return function () {
+               switch (ls.ctor)
+               {case "::": return _U.eq(c,
+                    ls._0) ? acc : A3(findi,
+                    c,
+                    ls._1,
+                    acc) + 1;
+                  case "[]": return acc + 1;}
+               _U.badCase($moduleName,
+               "between lines 143 and 146");
+            }();
+         });
+         var startIndex = A3(findi,
+         $Char.toCode(ch),
+         A2($List.map,$Char.toCode,chs),
+         0);
+         return A5(rmap,
+         fpstm,
+         clicktm,
+         startIndex,
+         endIndex,
+         $Graphics$Collage.toForm(toimg(ch)));
+      }();
+   });
+   var view_moving = F5(function (_v52,
+   fpstm,
+   clicktm,
+   _v53,
+   gp) {
+      return function () {
+         switch (_v53.ctor)
+         {case "_Tuple2":
+            switch (_v53._1.ctor)
+              {case "Moving":
+                 return function () {
+                      switch (_v52.ctor)
+                      {case "_Tuple2":
+                         return function () {
+                              var str$ = A2($List.drop,
+                              1,
+                              _v53._1._1);
+                              var animated = A5(charForms_mv,
+                              fpstm,
+                              clicktm,
+                              $List.head(_v53._1._1),
+                              $List.length(str$),
+                              _v53._1._2);
+                              var tcolor = _U.cmp(_v53._1._0,
+                              10) < 0 ? $Color.red : $Color.black;
+                              return A3($Graphics$Collage.collage,
+                              _v52._0 - 1,
+                              _v52._1 - 1,
+                              _L.fromArray([$Graphics$Collage.filled(gameColor)(A2($Graphics$Collage.rect,
+                                           $Basics.toFloat(_v52._0),
+                                           $Basics.toFloat(_v52._1)))
+                                           ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                   ,_0: $Basics.toFloat((0 - _v52._0) / 2 | 0) + 100
+                                                                   ,_1: $Basics.toFloat(_v52._1 / 2 | 0) - 50})($Graphics$Collage.toForm(A3($Graphics$Element.image,
+                                           210,
+                                           70,
+                                           "imgs/title.png")))
+                                           ,$Graphics$Collage.moveY(200)($Graphics$Collage.toForm(A2(render_chars,
+                                           {ctor: "_Tuple2"
+                                           ,_0: _v52._0
+                                           ,_1: _v52._1},
+                                           _v53._0.chars)))
+                                           ,$Graphics$Collage.toForm(runButtons(A2($Defs.Running,
+                                           _v53._1._0,
+                                           _v53._1._1)))
+                                           ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                   ,_0: -100
+                                                                   ,_1: 70})($Graphics$Collage.toForm($Text.centered($Text.height(30)($Text.color(tcolor)($Text.fromString(A2($Basics._op["++"],
+                                           "Time: ",
+                                           $Basics.toString(_v53._1._0))))))))
+                                           ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                   ,_0: 100
+                                                                   ,_1: 70})($Graphics$Collage.toForm($Text.centered($Text.height(30)($Text.fromString(A2($Basics._op["++"],
+                                           "Score: ",
+                                           $Basics.toString(_v53._0.score)))))))
+                                           ,$Graphics$Collage.moveY(-200)($Graphics$Collage.toForm(A2(render_chars,
+                                           {ctor: "_Tuple2"
+                                           ,_0: _v52._0
+                                           ,_1: _v52._1},
+                                           $List.reverse(str$))))
+                                           ,animated]));
+                           }();}
+                      _U.badCase($moduleName,
+                      "between lines 152 and 166");
+                   }();}
+              break;}
+         _U.badCase($moduleName,
+         "between lines 152 and 166");
+      }();
+   });
+   var animateMed = F2(function (start,
+   end) {
+      return A5($Easing.ease,
+      $Easing.easeInQuad,
+      $Easing.point2d,
+      start,
+      end,
+      $Time.second);
+   });
+   var imap = F5(function (fpstm,
+   clicktm,
+   ls,
+   i,
+   f) {
+      return function () {
+         var xy = $Defs.ptToTuple(A3(animateMed,
+         $Defs.tupleToPt({ctor: "_Tuple2"
+                         ,_0: -240.0 + $Basics.toFloat(i) * 80.0
+                         ,_1: 200.0}),
+         $Defs.tupleToPt({ctor: "_Tuple2"
+                         ,_0: -240 + $Basics.toFloat($List.head(A2($List.drop,
+                         i,
+                         ls))) * 80.0
+                         ,_1: 200.0}),
+         fpstm - clicktm));
+         return A2($Graphics$Collage.move,
+         xy,
+         f);
+      }();
+   });
+   var charForms_sf = F3(function (fpstm,
+   clicktm,
+   old_cs) {
+      return function () {
+         var ls$ = _L.fromArray([6
+                                ,4
+                                ,2
+                                ,5
+                                ,3
+                                ,1
+                                ,0]);
+         var old_es = A2($List.map,
+         $Graphics$Collage.toForm,
+         A2($List.map,toimg,old_cs));
+         return A2($List.indexedMap,
+         A3(imap,fpstm,clicktm,ls$),
+         old_es);
+      }();
+   });
+   var view_shuffle = F5(function (_v63,
+   fpstm,
+   clicktm,
+   _v64,
+   gp) {
+      return function () {
+         switch (_v64.ctor)
+         {case "_Tuple2":
+            switch (_v64._1.ctor)
+              {case "Shuffling":
+                 return function () {
+                      switch (_v63.ctor)
+                      {case "_Tuple2":
+                         return function () {
+                              var tolist = A3(charForms_sf,
+                              fpstm,
+                              clicktm,
+                              _v64._1._2);
+                              var tcolor = _U.cmp(_v64._1._0,
+                              10) < 0 ? $Color.red : $Color.black;
+                              return A2($Graphics$Collage.collage,
+                              _v63._0 - 1,
+                              _v63._1 - 1)(A2($List.append,
+                              _L.fromArray([$Graphics$Collage.filled(gameColor)(A2($Graphics$Collage.rect,
+                                           $Basics.toFloat(_v63._0),
+                                           $Basics.toFloat(_v63._1)))
+                                           ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                   ,_0: $Basics.toFloat((0 - _v63._0) / 2 | 0) + 100
+                                                                   ,_1: $Basics.toFloat(_v63._1 / 2 | 0) - 50})($Graphics$Collage.toForm(A3($Graphics$Element.image,
+                                           210,
+                                           70,
+                                           "imgs/title.png")))
+                                           ,$Graphics$Collage.toForm(runButtons(A2($Defs.Running,
+                                           _v64._1._0,
+                                           _v64._1._1)))
+                                           ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                   ,_0: -100
+                                                                   ,_1: 70})($Graphics$Collage.toForm($Text.centered($Text.height(30)($Text.color(tcolor)($Text.fromString(A2($Basics._op["++"],
+                                           "Time: ",
+                                           $Basics.toString(_v64._1._0))))))))
+                                           ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                   ,_0: 100
+                                                                   ,_1: 70})($Graphics$Collage.toForm($Text.centered($Text.height(30)($Text.fromString(A2($Basics._op["++"],
+                                           "Score: ",
+                                           $Basics.toString(_v64._0.score)))))))
+                                           ,$Graphics$Collage.moveY(-200)($Graphics$Collage.toForm(A2(render_chars,
+                                           {ctor: "_Tuple2"
+                                           ,_0: _v63._0
+                                           ,_1: _v63._1},
+                                           $List.reverse(_v64._1._1))))]),
+                              tolist));
+                           }();}
+                      _U.badCase($moduleName,
+                      "between lines 112 and 126");
+                   }();}
+              break;}
+         _U.badCase($moduleName,
+         "between lines 112 and 126");
+      }();
+   });
+   _elm.Viewing.values = {_op: _op
+                         ,view_end: view_end
+                         ,view_begin: view_begin
+                         ,view_paused: view_paused
+                         ,view_running: view_running
+                         ,view_shuffle: view_shuffle
+                         ,view_moving: view_moving};
+   return _elm.Viewing.values;
+};

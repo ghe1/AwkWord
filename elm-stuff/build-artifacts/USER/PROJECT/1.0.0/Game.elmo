@@ -1,0 +1,501 @@
+Elm.Game = Elm.Game || {};
+Elm.Game.make = function (_elm) {
+   "use strict";
+   _elm.Game = _elm.Game || {};
+   if (_elm.Game.values)
+   return _elm.Game.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   _P = _N.Ports.make(_elm),
+   $moduleName = "Game",
+   $Basics = Elm.Basics.make(_elm),
+   $Char = Elm.Char.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $Defs = Elm.Defs.make(_elm),
+   $ENDictionary = Elm.ENDictionary.make(_elm),
+   $Graphics$Element = Elm.Graphics.Element.make(_elm),
+   $Graphics$Input$Field = Elm.Graphics.Input.Field.make(_elm),
+   $Keyboard = Elm.Keyboard.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $String = Elm.String.make(_elm),
+   $Time = Elm.Time.make(_elm),
+   $Viewing = Elm.Viewing.make(_elm),
+   $Window = Elm.Window.make(_elm),
+   $Words = Elm.Words.make(_elm);
+   var view_ = F6(function (_v0,
+   fpstm,
+   clicktm,
+   st,
+   gp,
+   sd) {
+      return function () {
+         switch (_v0.ctor)
+         {case "_Tuple2":
+            return function () {
+                 switch (st.ctor)
+                 {case "_Tuple2":
+                    switch (st._1.ctor)
+                      {case "Begin":
+                         return A4($Viewing.view_begin,
+                           {ctor: "_Tuple2"
+                           ,_0: _v0._0
+                           ,_1: _v0._1},
+                           st,
+                           gp,
+                           sd);
+                         case "End":
+                         return A2($Viewing.view_end,
+                           {ctor: "_Tuple2"
+                           ,_0: _v0._0
+                           ,_1: _v0._1},
+                           st);
+                         case "Moving":
+                         return A5($Viewing.view_moving,
+                           {ctor: "_Tuple2"
+                           ,_0: _v0._0
+                           ,_1: _v0._1},
+                           fpstm,
+                           clicktm,
+                           st,
+                           gp);
+                         case "Paused":
+                         return A2($Viewing.view_paused,
+                           {ctor: "_Tuple2"
+                           ,_0: _v0._0
+                           ,_1: _v0._1},
+                           st);
+                         case "Running":
+                         return A3($Viewing.view_running,
+                           {ctor: "_Tuple2"
+                           ,_0: _v0._0
+                           ,_1: _v0._1},
+                           st,
+                           gp);
+                         case "Shuffling":
+                         return A5($Viewing.view_shuffle,
+                           {ctor: "_Tuple2"
+                           ,_0: _v0._0
+                           ,_1: _v0._1},
+                           fpstm,
+                           clicktm,
+                           st,
+                           gp);}
+                      break;}
+                 _U.badCase($moduleName,
+                 "between lines 147 and 153");
+              }();}
+         _U.badCase($moduleName,
+         "between lines 147 and 153");
+      }();
+   });
+   var upstate = F2(function (_v18,
+   _v19) {
+      return function () {
+         switch (_v19.ctor)
+         {case "_Tuple2":
+            return function () {
+                 switch (_v18.ctor)
+                 {case "_Tuple2":
+                    switch (_v18._0.ctor)
+                      {case "_Tuple2":
+                         return function () {
+                              switch (_v18._1.ctor)
+                              {case "Again":
+                                 return $Defs.initState;
+                                 case "Done":
+                                 return {ctor: "_Tuple2"
+                                        ,_0: _v19._0
+                                        ,_1: $Defs.End(_v18._1._0)};
+                                 case "Enter":
+                                 return function () {
+                                      var enterup = F2(function (t,
+                                      str) {
+                                         return $ENDictionary.memberDict($String.toLower($String.fromList($List.reverse(str)))) ? {ctor: "_Tuple2"
+                                                                                                                                  ,_0: $Words.reFill(A2($Words.upScore,
+                                                                                                                                  10 * $List.length(str),
+                                                                                                                                  _v19._0))
+                                                                                                                                  ,_1: A2($Defs.Running,
+                                                                                                                                  t,
+                                                                                                                                  _L.fromArray([]))} : {ctor: "_Tuple2"
+                                                                                                                                                       ,_0: A2($Words.addChars,
+                                                                                                                                                       str,
+                                                                                                                                                       _v19._0)
+                                                                                                                                                       ,_1: A2($Defs.Running,
+                                                                                                                                                       t,
+                                                                                                                                                       _L.fromArray([]))};
+                                      });
+                                      return function () {
+                                         switch (_v19._1.ctor)
+                                         {case "Moving":
+                                            return A2(enterup,
+                                              _v19._1._0,
+                                              _v19._1._1);
+                                            case "Running":
+                                            return A2(enterup,
+                                              _v19._1._0,
+                                              _v19._1._1);
+                                            case "Shuffling":
+                                            return A2(enterup,
+                                              _v19._1._0,
+                                              _v19._1._1);}
+                                         _U.badCase($moduleName,
+                                         "between lines 91 and 96");
+                                      }();
+                                   }();
+                                 case "Key": return function () {
+                                      var keyup = F2(function (t,
+                                      str) {
+                                         return _U.eq(_v18._1._0,
+                                         8) ? {ctor: "_Tuple2"
+                                              ,_0: A2($Words.addChars,
+                                              A2($List.take,1,str),
+                                              _v19._0)
+                                              ,_1: A2($Defs.Running,
+                                              t,
+                                              A2($List.drop,
+                                              1,
+                                              str))} : _U.eq(_v18._1._0,
+                                         13) ? $ENDictionary.memberDict($String.toLower($String.fromList($List.reverse(str)))) ? {ctor: "_Tuple2"
+                                                                                                                                 ,_0: $Words.reFill(A2($Words.upScore,
+                                                                                                                                 10 * $List.length(str),
+                                                                                                                                 _v19._0))
+                                                                                                                                 ,_1: A2($Defs.Running,
+                                                                                                                                 t,
+                                                                                                                                 _L.fromArray([]))} : {ctor: "_Tuple2"
+                                                                                                                                                      ,_0: A2($Words.addChars,
+                                                                                                                                                      str,
+                                                                                                                                                      _v19._0)
+                                                                                                                                                      ,_1: A2($Defs.Running,
+                                                                                                                                                      t,
+                                                                                                                                                      _L.fromArray([]))} : _U.eq(_v18._1._0,
+                                         27) ? {ctor: "_Tuple2"
+                                               ,_0: _v19._0
+                                               ,_1: A2($Defs.Paused,
+                                               t,
+                                               str)} : _U.eq(_v18._1._0,
+                                         32) ? {ctor: "_Tuple2"
+                                               ,_0: $Words.shuffle(_v19._0)
+                                               ,_1: A3($Defs.Shuffling,
+                                               t,
+                                               str,
+                                               _v19._0.chars)} : _U.cmp(_v18._1._0,
+                                         65) > -1 && (_U.cmp(_v18._1._0,
+                                         90) < 1 && A2($List.member,
+                                         $Char.fromCode(_v18._1._0),
+                                         _v19._0.chars)) ? {ctor: "_Tuple2"
+                                                           ,_0: A3($Words.delChar,
+                                                           $Char.fromCode(_v18._1._0),
+                                                           _v19._0.chars,
+                                                           _v19._0)
+                                                           ,_1: A3($Defs.Moving,
+                                                           t,
+                                                           A2($List._op["::"],
+                                                           $Char.fromCode(_v18._1._0),
+                                                           str),
+                                                           _v19._0.chars)} : {ctor: "_Tuple2"
+                                                                             ,_0: _v19._0
+                                                                             ,_1: A2($Defs.Running,
+                                                                             t,
+                                                                             str)};
+                                      });
+                                      return function () {
+                                         switch (_v19._1.ctor)
+                                         {case "Begin":
+                                            return _U.eq(_v18._1._0,
+                                              32) ? {ctor: "_Tuple2"
+                                                    ,_0: $Words.initUser($Basics.truncate(_v18._0._0))
+                                                    ,_1: A2($Defs.Running,
+                                                    60,
+                                                    _L.fromArray([]))} : {ctor: "_Tuple2"
+                                                                         ,_0: _v19._0
+                                                                         ,_1: _v19._1};
+                                            case "End":
+                                            return _U.eq(_v18._1._0,
+                                              32) ? {ctor: "_Tuple2"
+                                                    ,_0: _v19._0
+                                                    ,_1: $Defs.Begin} : {ctor: "_Tuple2"
+                                                                        ,_0: _v19._0
+                                                                        ,_1: _v19._1};
+                                            case "Moving": return A2(keyup,
+                                              _v19._1._0,
+                                              _v19._1._1);
+                                            case "Paused":
+                                            return _U.eq(_v18._1._0,
+                                              32) ? {ctor: "_Tuple2"
+                                                    ,_0: _v19._0
+                                                    ,_1: A2($Defs.Running,
+                                                    _v19._1._0,
+                                                    _v19._1._1)} : {ctor: "_Tuple2"
+                                                                   ,_0: _v19._0
+                                                                   ,_1: _v19._1};
+                                            case "Running": return A2(keyup,
+                                              _v19._1._0,
+                                              _v19._1._1);
+                                            case "Shuffling":
+                                            return A2(keyup,
+                                              _v19._1._0,
+                                              _v19._1._1);}
+                                         return {ctor: "_Tuple2"
+                                                ,_0: _v19._0
+                                                ,_1: _v19._1};
+                                      }();
+                                   }();
+                                 case "Pause":
+                                 return function () {
+                                      switch (_v19._1.ctor)
+                                      {case "Moving":
+                                         return {ctor: "_Tuple2"
+                                                ,_0: _v19._0
+                                                ,_1: A2($Defs.Paused,
+                                                _v19._1._0,
+                                                _v19._1._1)};
+                                         case "Running":
+                                         return {ctor: "_Tuple2"
+                                                ,_0: _v19._0
+                                                ,_1: A2($Defs.Paused,
+                                                _v19._1._0,
+                                                _v19._1._1)};
+                                         case "Shuffling":
+                                         return {ctor: "_Tuple2"
+                                                ,_0: _v19._0
+                                                ,_1: A2($Defs.Paused,
+                                                _v19._1._0,
+                                                _v19._1._1)};}
+                                      return {ctor: "_Tuple2"
+                                             ,_0: _v19._0
+                                             ,_1: _v19._1};
+                                   }();
+                                 case "Play":
+                                 return function () {
+                                      switch (_v19._1.ctor)
+                                      {case "Paused":
+                                         return {ctor: "_Tuple2"
+                                                ,_0: _v19._0
+                                                ,_1: A2($Defs.Running,
+                                                _v19._1._0,
+                                                _v19._1._1)};}
+                                      return {ctor: "_Tuple2"
+                                             ,_0: _v19._0
+                                             ,_1: _v19._1};
+                                   }();
+                                 case "Reroll":
+                                 return function () {
+                                      switch (_v19._1.ctor)
+                                      {case "Moving":
+                                         return {ctor: "_Tuple2"
+                                                ,_0: $Words.reroll(A2($Words.upScore,
+                                                -20,
+                                                _v19._0))
+                                                ,_1: A2($Defs.Running,
+                                                _v19._1._0,
+                                                _L.fromArray([]))};
+                                         case "Running":
+                                         return {ctor: "_Tuple2"
+                                                ,_0: $Words.reroll(A2($Words.upScore,
+                                                -20,
+                                                _v19._0))
+                                                ,_1: A2($Defs.Running,
+                                                _v19._1._0,
+                                                _L.fromArray([]))};
+                                         case "Shuffling":
+                                         return {ctor: "_Tuple2"
+                                                ,_0: $Words.reroll(A2($Words.upScore,
+                                                -20,
+                                                _v19._0))
+                                                ,_1: A2($Defs.Running,
+                                                _v19._1._0,
+                                                _L.fromArray([]))};}
+                                      return {ctor: "_Tuple2"
+                                             ,_0: _v19._0
+                                             ,_1: _v19._1};
+                                   }();
+                                 case "Shuffle":
+                                 return function () {
+                                      switch (_v19._1.ctor)
+                                      {case "Moving":
+                                         return {ctor: "_Tuple2"
+                                                ,_0: $Words.shuffle(_v19._0)
+                                                ,_1: A3($Defs.Shuffling,
+                                                _v19._1._0,
+                                                _v19._1._1,
+                                                _v19._0.chars)};
+                                         case "Running":
+                                         return {ctor: "_Tuple2"
+                                                ,_0: $Words.shuffle(_v19._0)
+                                                ,_1: A3($Defs.Shuffling,
+                                                _v19._1._0,
+                                                _v19._1._1,
+                                                _v19._0.chars)};
+                                         case "Shuffling":
+                                         return {ctor: "_Tuple2"
+                                                ,_0: $Words.shuffle(_v19._0)
+                                                ,_1: A3($Defs.Shuffling,
+                                                _v19._1._0,
+                                                _v19._1._1,
+                                                _v19._0.chars)};}
+                                      return {ctor: "_Tuple2"
+                                             ,_0: _v19._0
+                                             ,_1: _v19._1};
+                                   }();
+                                 case "Start":
+                                 return function () {
+                                      var _v84 = $String.toInt(_v18._1._0);
+                                      switch (_v84.ctor)
+                                      {case "Err":
+                                         return {ctor: "_Tuple2"
+                                                ,_0: $Words.initUser($Basics.truncate(_v18._0._0))
+                                                ,_1: A2($Defs.Running,
+                                                60,
+                                                _L.fromArray([]))};
+                                         case "Ok":
+                                         return {ctor: "_Tuple2"
+                                                ,_0: $Words.initUser(_v84._0)
+                                                ,_1: A2($Defs.Running,
+                                                60,
+                                                _L.fromArray([]))};}
+                                      _U.badCase($moduleName,
+                                      "between lines 66 and 70");
+                                   }();
+                                 case "Tick":
+                                 return function () {
+                                      switch (_v19._1.ctor)
+                                      {case "Moving":
+                                         switch (_v19._1._0)
+                                           {case 0: return {ctor: "_Tuple2"
+                                                           ,_0: A2($Debug.watch,
+                                                           "user",
+                                                           _v19._0)
+                                                           ,_1: $Defs.End(0)};}
+                                           return {ctor: "_Tuple2"
+                                                  ,_0: A2($Debug.watch,
+                                                  "user",
+                                                  _v19._0)
+                                                  ,_1: A3($Defs.Moving,
+                                                  _v19._1._0 - 1,
+                                                  _v19._1._1,
+                                                  _v19._1._2)};
+                                         case "Running":
+                                         switch (_v19._1._0)
+                                           {case 0: return {ctor: "_Tuple2"
+                                                           ,_0: A2($Debug.watch,
+                                                           "user",
+                                                           _v19._0)
+                                                           ,_1: $Defs.End(0)};}
+                                           return {ctor: "_Tuple2"
+                                                  ,_0: A2($Debug.watch,
+                                                  "user",
+                                                  _v19._0)
+                                                  ,_1: A2($Defs.Running,
+                                                  _v19._1._0 - 1,
+                                                  _v19._1._1)};
+                                         case "Shuffling":
+                                         switch (_v19._1._0)
+                                           {case 0: return {ctor: "_Tuple2"
+                                                           ,_0: A2($Debug.watch,
+                                                           "user",
+                                                           _v19._0)
+                                                           ,_1: $Defs.End(0)};}
+                                           return {ctor: "_Tuple2"
+                                                  ,_0: A2($Debug.watch,
+                                                  "user",
+                                                  _v19._0)
+                                                  ,_1: A3($Defs.Shuffling,
+                                                  _v19._1._0 - 1,
+                                                  _v19._1._1,
+                                                  _v19._1._2)};}
+                                      return {ctor: "_Tuple2"
+                                             ,_0: A2($Debug.watch,
+                                             "user",
+                                             _v19._0)
+                                             ,_1: _v19._1};
+                                   }();}
+                              _U.badCase($moduleName,
+                              "between lines 52 and 141");
+                           }();}
+                      break;}
+                 _U.badCase($moduleName,
+                 "between lines 52 and 141");
+              }();}
+         _U.badCase($moduleName,
+         "between lines 52 and 141");
+      }();
+   });
+   var gpKey = F2(function (gp,
+   kc) {
+      return A2($Signal._op["~"],
+      A2($Signal._op["<~"],
+      F2(function (t,k) {
+         return {ctor: "_Tuple2"
+                ,_0: t
+                ,_1: k};
+      }),
+      gp),
+      kc);
+   });
+   var mergeWithTime = F2(function (t,
+   gp) {
+      return function () {
+         var time = $Time.timestamp($Time.every(t));
+         return $Signal.mergeMany(_L.fromArray([A2($Signal._op["<~"],
+                                               function (t) {
+                                                  return {ctor: "_Tuple2"
+                                                         ,_0: t
+                                                         ,_1: $Defs.Tick};
+                                               },
+                                               time)
+                                               ,A2($Signal._op["~"],
+                                               A2($Signal._op["<~"],
+                                               F2(function (t,m) {
+                                                  return {ctor: "_Tuple2"
+                                                         ,_0: t
+                                                         ,_1: m};
+                                               }),
+                                               A2($Signal.sampleOn,gp,time)),
+                                               gp)
+                                               ,A2($Signal._op["~"],
+                                               A2($Signal._op["<~"],
+                                               F2(function (t,k) {
+                                                  return {ctor: "_Tuple2"
+                                                         ,_0: t
+                                                         ,_1: $Defs.Key(k)};
+                                               }),
+                                               time),
+                                               $Keyboard.lastPressed)]));
+      }();
+   });
+   var main = A2($Signal._op["~"],
+   A2($Signal._op["~"],
+   A2($Signal._op["~"],
+   A2($Signal._op["~"],
+   A2($Signal._op["~"],
+   A2($Signal._op["<~"],
+   view_,
+   $Window.dimensions),
+   A2($Signal._op["<~"],
+   $Basics.fst,
+   $Time.timestamp($Time.fps(60)))),
+   A2($Signal._op["<~"],
+   $Basics.fst,
+   $Time.timestamp(A2(gpKey,
+   $Signal.subscribe($Defs.gameplay),
+   $Keyboard.lastPressed)))),
+   A3($Signal.foldp,
+   upstate,
+   $Defs.initState,
+   A2(mergeWithTime,
+   $Time.second,
+   $Signal.subscribe($Defs.gameplay)))),
+   $Signal.subscribe($Defs.gameplay)),
+   $Signal.subscribe($Defs.seed));
+   _elm.Game.values = {_op: _op
+                      ,mergeWithTime: mergeWithTime
+                      ,gpKey: gpKey
+                      ,main: main
+                      ,upstate: upstate
+                      ,view_: view_};
+   return _elm.Game.values;
+};

@@ -1,0 +1,114 @@
+Elm.Defs = Elm.Defs || {};
+Elm.Defs.make = function (_elm) {
+   "use strict";
+   _elm.Defs = _elm.Defs || {};
+   if (_elm.Defs.values)
+   return _elm.Defs.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   _P = _N.Ports.make(_elm),
+   $moduleName = "Defs",
+   $Graphics$Input$Field = Elm.Graphics.Input.Field.make(_elm),
+   $Keyboard = Elm.Keyboard.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $Time = Elm.Time.make(_elm),
+   $Words = Elm.Words.make(_elm);
+   var seed = $Signal.channel($Graphics$Input$Field.noContent);
+   var tupleToPt = function (_v0) {
+      return function () {
+         switch (_v0.ctor)
+         {case "_Tuple2": return {_: {}
+                                 ,x: _v0._0
+                                 ,y: _v0._1};}
+         _U.badCase($moduleName,
+         "on line 39, column 21 to 29");
+      }();
+   };
+   var ptToTuple = function (pt) {
+      return {ctor: "_Tuple2"
+             ,_0: pt.x
+             ,_1: pt.y};
+   };
+   var End = function (a) {
+      return {ctor: "End",_0: a};
+   };
+   var Paused = F2(function (a,b) {
+      return {ctor: "Paused"
+             ,_0: a
+             ,_1: b};
+   });
+   var Shuffling = F3(function (a,
+   b,
+   c) {
+      return {ctor: "Shuffling"
+             ,_0: a
+             ,_1: b
+             ,_2: c};
+   });
+   var Moving = F3(function (a,
+   b,
+   c) {
+      return {ctor: "Moving"
+             ,_0: a
+             ,_1: b
+             ,_2: c};
+   });
+   var Running = F2(function (a,
+   b) {
+      return {ctor: "Running"
+             ,_0: a
+             ,_1: b};
+   });
+   var Begin = {ctor: "Begin"};
+   var initState = {ctor: "_Tuple2"
+                   ,_0: $Words.initUser(42)
+                   ,_1: Begin};
+   var Reroll = {ctor: "Reroll"};
+   var Shuffle = {ctor: "Shuffle"};
+   var Key = function (a) {
+      return {ctor: "Key",_0: a};
+   };
+   var Enter = function (a) {
+      return {ctor: "Enter",_0: a};
+   };
+   var Play = {ctor: "Play"};
+   var Pause = {ctor: "Pause"};
+   var Again = {ctor: "Again"};
+   var Start = function (a) {
+      return {ctor: "Start",_0: a};
+   };
+   var Tick = {ctor: "Tick"};
+   var Done = function (a) {
+      return {ctor: "Done",_0: a};
+   };
+   var gameplay = $Signal.channel(Done(0));
+   var Point = F2(function (a,b) {
+      return {_: {},x: a,y: b};
+   });
+   _elm.Defs.values = {_op: _op
+                      ,Point: Point
+                      ,Done: Done
+                      ,Tick: Tick
+                      ,Start: Start
+                      ,Again: Again
+                      ,Pause: Pause
+                      ,Play: Play
+                      ,Enter: Enter
+                      ,Key: Key
+                      ,Shuffle: Shuffle
+                      ,Reroll: Reroll
+                      ,Begin: Begin
+                      ,Running: Running
+                      ,Moving: Moving
+                      ,Shuffling: Shuffling
+                      ,Paused: Paused
+                      ,End: End
+                      ,ptToTuple: ptToTuple
+                      ,tupleToPt: tupleToPt
+                      ,initState: initState
+                      ,gameplay: gameplay
+                      ,seed: seed};
+   return _elm.Defs.values;
+};

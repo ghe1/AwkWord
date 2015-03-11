@@ -1,0 +1,270 @@
+Elm.Words = Elm.Words || {};
+Elm.Words.make = function (_elm) {
+   "use strict";
+   _elm.Words = _elm.Words || {};
+   if (_elm.Words.values)
+   return _elm.Words.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   _P = _N.Ports.make(_elm),
+   $moduleName = "Words",
+   $Basics = Elm.Basics.make(_elm),
+   $Char = Elm.Char.make(_elm),
+   $Debug = Elm.Debug.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Random = Elm.Random.make(_elm);
+   var updateSeed = F2(function (sd,
+   usr) {
+      return {_: {}
+             ,chars: usr.chars
+             ,genSeed: sd
+             ,randGen: usr.randGen
+             ,score: usr.score};
+   });
+   var updateChars = F2(function (cs,
+   usr) {
+      return {_: {}
+             ,chars: cs
+             ,genSeed: usr.genSeed
+             ,randGen: usr.randGen
+             ,score: usr.score};
+   });
+   var randVowels = F2(function (n,
+   sd) {
+      return function () {
+         var ntov = function (x) {
+            return _U.eq(x,
+            1) ? 65 : _U.eq(x,
+            2) ? 69 : _U.eq(x,
+            3) ? 73 : _U.eq(x,
+            4) ? 79 : _U.eq(x,
+            5) ? 85 : _U.badIf($moduleName,
+            "on line 111, column 7 to 74");
+         };
+         var rg = A2($Random.list,
+         n,
+         A2($Random.$int,1,5));
+         var $ = A2($Random.generate,
+         rg,
+         sd),
+         c = $._0,
+         sd$ = $._1;
+         return {ctor: "_Tuple2"
+                ,_0: sd$
+                ,_1: A2($List.map,
+                $Char.fromCode,
+                A2($List.map,ntov,c))};
+      }();
+   });
+   var balance = F3(function (n,
+   cs,
+   sd) {
+      return function () {
+         var rv = A2(randVowels,n,sd);
+         return {ctor: "_Tuple2"
+                ,_0: $Basics.fst(rv)
+                ,_1: A2($List.append,
+                cs,
+                $Basics.snd(rv))};
+      }();
+   });
+   var multiIntersperse = F2(function (as1,
+   as2) {
+      return function () {
+         var _v0 = {ctor: "_Tuple2"
+                   ,_0: as1
+                   ,_1: as2};
+         switch (_v0.ctor)
+         {case "_Tuple2":
+            switch (_v0._0.ctor)
+              {case "::": switch (_v0._1.ctor)
+                   {case "::":
+                      return A2($List.append,
+                        A2(multiIntersperse,
+                        _v0._0._1,
+                        _v0._1._1),
+                        _L.fromArray([_v0._1._0
+                                     ,_v0._0._0]));}
+                   break;
+                 case "[]": return as2;}
+              switch (_v0._1.ctor)
+              {case "[]": return as1;}
+              break;}
+         _U.badCase($moduleName,
+         "between lines 100 and 103");
+      }();
+   });
+   var delChar = F3(function (c,
+   cs,
+   usr) {
+      return function () {
+         var upC = $Char.toCode(c);
+         return function () {
+            switch (cs.ctor)
+            {case "::":
+               return _U.eq($Char.toCode(cs._0),
+                 upC) ? A2(updateChars,
+                 A2($List._op["::"],
+                 _U.chr("0"),
+                 cs._1),
+                 usr) : A2(updateChars,
+                 A2($List._op["::"],
+                 cs._0,
+                 A3(delChar,c,cs._1,usr).chars),
+                 usr);}
+            return usr;
+         }();
+      }();
+   });
+   var addChars = F2(function (cs,
+   usr) {
+      return function () {
+         var nuchars = A2($List.filter,
+         function (x) {
+            return !_U.eq(x,_U.chr("0"));
+         },
+         usr.chars);
+         return A2(updateChars,
+         A2($List.append,cs,nuchars),
+         usr);
+      }();
+   });
+   var User = F4(function (a,
+   b,
+   c,
+   d) {
+      return {_: {}
+             ,chars: a
+             ,genSeed: c
+             ,randGen: d
+             ,score: b};
+   });
+   var vowels = A2($List.map,
+   $Char.fromCode,
+   _L.fromArray([65,69,73,79,85]));
+   var ravi = true;
+   var nvowels = 2;
+   var nletters = 7;
+   var initUser = function (sd) {
+      return function () {
+         var initSeed = function () {
+            switch (sd)
+            {case 42:
+               return $Random.initialSeed(42);}
+            return $Random.initialSeed(sd);
+         }();
+         var randGen$ = A2($Random.list,
+         nletters - nvowels,
+         A2($Random.$int,65,90));
+         var randList = A2($Random.generate,
+         randGen$,
+         initSeed);
+         return {_: {}
+                ,chars: $Basics.snd(A3(balance,
+                nvowels,
+                A2($List.map,
+                $Char.fromCode,
+                $Basics.fst(randList)),
+                initSeed))
+                ,genSeed: $Basics.snd(randList)
+                ,randGen: A2($Random.$int,65,90)
+                ,score: 0};
+      }();
+   };
+   var reFill = function (usr) {
+      return function () {
+         var usrc$ = A2($List.filter,
+         function (x) {
+            return !_U.eq(x,_U.chr("0"));
+         },
+         usr.chars);
+         var rg = A2($Random.list,
+         nletters - $List.length(usrc$),
+         usr.randGen);
+         var $ = A2($Random.generate,
+         rg,
+         usr.genSeed),
+         rlist = $._0,
+         rseed = $._1;
+         var nusr = A2(addChars,
+         A2($List.map,
+         $Char.fromCode,
+         rlist),
+         A2(updateSeed,rseed,usr));
+         var filtered = $Debug.watch("Consonants")(A2($List.filter,
+         function (x) {
+            return $Basics.not(A2($List.member,
+            x,
+            vowels));
+         },
+         nusr.chars));
+         var newvows = nletters - $List.length(filtered);
+         var bal = _U.cmp(newvows,
+         2) < 0 ? A3(balance,
+         2,
+         A2($List.drop,
+         2 - newvows,
+         filtered),
+         rseed) : {ctor: "_Tuple2"
+                  ,_0: rseed
+                  ,_1: nusr.chars};
+         return A2(updateChars,
+         $Basics.snd(bal),
+         A2(updateSeed,
+         $Basics.fst(bal),
+         nusr));
+      }();
+   };
+   var reroll = function (usr) {
+      return function () {
+         var usr$ = {_: {}
+                    ,chars: _L.fromArray([])
+                    ,genSeed: usr.genSeed
+                    ,randGen: usr.randGen
+                    ,score: usr.score};
+         return reFill(usr$);
+      }();
+   };
+   var updateScore = F2(function (n,
+   usr) {
+      return function () {
+         var nusr = reFill(usr);
+         return {_: {}
+                ,chars: nusr.chars
+                ,genSeed: nusr.genSeed
+                ,randGen: nusr.randGen
+                ,score: usr.score + n};
+      }();
+   });
+   var upScore = updateScore;
+   var shuffle = function (usr) {
+      return function () {
+         var len = nletters / 2 | 0;
+         var cs1 = A2($List.take,
+         len,
+         usr.chars);
+         var cs2 = A2($List.drop,
+         len,
+         usr.chars);
+         return A2(updateChars,
+         A2(multiIntersperse,cs1,cs2),
+         usr);
+      }();
+   };
+   _elm.Words.values = {_op: _op
+                       ,nletters: nletters
+                       ,nvowels: nvowels
+                       ,initUser: initUser
+                       ,delChar: delChar
+                       ,reFill: reFill
+                       ,upScore: upScore
+                       ,reroll: reroll
+                       ,addChars: addChars
+                       ,shuffle: shuffle
+                       ,ravi: ravi
+                       ,multiIntersperse: multiIntersperse
+                       ,User: User};
+   return _elm.Words.values;
+};

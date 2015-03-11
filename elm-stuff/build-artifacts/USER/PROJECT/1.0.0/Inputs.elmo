@@ -1,0 +1,107 @@
+Elm.Inputs = Elm.Inputs || {};
+Elm.Inputs.make = function (_elm) {
+   "use strict";
+   _elm.Inputs = _elm.Inputs || {};
+   if (_elm.Inputs.values)
+   return _elm.Inputs.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   _P = _N.Ports.make(_elm),
+   $moduleName = "Inputs",
+   $Basics = Elm.Basics.make(_elm),
+   $Defs = Elm.Defs.make(_elm),
+   $Graphics$Element = Elm.Graphics.Element.make(_elm),
+   $Graphics$Input = Elm.Graphics.Input.make(_elm),
+   $Graphics$Input$Field = Elm.Graphics.Input.Field.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $String = Elm.String.make(_elm);
+   var seedField = function (content) {
+      return $Graphics$Element.flow($Graphics$Element.right)(_L.fromArray([A4($Graphics$Input$Field.field,
+      $Graphics$Input$Field.defaultStyle,
+      $Signal.send($Defs.seed),
+      "Seed",
+      content)]));
+   };
+   var endButtons = function () {
+      var hspace = A2($Graphics$Element.spacer,
+      10,
+      10);
+      return $Graphics$Element.flow($Graphics$Element.right)($List.intersperse(hspace)(_L.fromArray([A2($Graphics$Input.button,
+      A2($Signal.send,
+      $Defs.gameplay,
+      $Defs.Again),
+      "Again")])));
+   }();
+   var pauseButtons = function () {
+      var hspace = A2($Graphics$Element.spacer,
+      10,
+      10);
+      return $Graphics$Element.flow($Graphics$Element.right)($List.intersperse(hspace)(_L.fromArray([A2($Graphics$Input.button,
+                                                                                                    A2($Signal.send,
+                                                                                                    $Defs.gameplay,
+                                                                                                    $Defs.Play),
+                                                                                                    "Play")
+                                                                                                    ,A2($Graphics$Input.button,
+                                                                                                    A2($Signal.send,
+                                                                                                    $Defs.gameplay,
+                                                                                                    $Defs.Done),
+                                                                                                    "End")])));
+   }();
+   var runButtons = F2(function (content,
+   _v0) {
+      return function () {
+         switch (_v0.ctor)
+         {case "Running":
+            return function () {
+                 var hspace = A2($Graphics$Element.spacer,
+                 10,
+                 10);
+                 return $Graphics$Element.flow($Graphics$Element.right)($List.intersperse(hspace)(_L.fromArray([A2($Graphics$Input.button,
+                                                                                                               A2($Signal.send,
+                                                                                                               $Defs.gameplay,
+                                                                                                               $Defs.Pause),
+                                                                                                               "Pause")
+                                                                                                               ,A2($Graphics$Input.button,
+                                                                                                               A2($Signal.send,
+                                                                                                               $Defs.gameplay,
+                                                                                                               $Defs.Enter($String.fromList(_v0._1))),
+                                                                                                               "Enter")
+                                                                                                               ,A2($Graphics$Input.button,
+                                                                                                               A2($Signal.send,
+                                                                                                               $Defs.gameplay,
+                                                                                                               $Defs.Shuffle),
+                                                                                                               "Shuffle")
+                                                                                                               ,A2($Graphics$Input.button,
+                                                                                                               A2($Signal.send,
+                                                                                                               $Defs.gameplay,
+                                                                                                               $Defs.Reroll),
+                                                                                                               "ReRoll")])));
+              }();}
+         _U.badCase($moduleName,
+         "between lines 28 and 38");
+      }();
+   });
+   var beginButtons = function (content) {
+      return function () {
+         var vspace = A2($Graphics$Element.spacer,
+         10,
+         10);
+         return $Graphics$Element.flow($Graphics$Element.down)($List.intersperse(vspace)(_L.fromArray([A2($Graphics$Input.button,
+                                                                                                      A2($Signal.send,
+                                                                                                      $Defs.gameplay,
+                                                                                                      $Defs.Start(content.string)),
+                                                                                                      "Start")
+                                                                                                      ,seedField(content)])));
+      }();
+   };
+   _elm.Inputs.values = {_op: _op
+                        ,beginButtons: beginButtons
+                        ,runButtons: runButtons
+                        ,pauseButtons: pauseButtons
+                        ,endButtons: endButtons
+                        ,seedField: seedField};
+   return _elm.Inputs.values;
+};
