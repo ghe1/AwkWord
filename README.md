@@ -1,6 +1,6 @@
 # AwkWord: A word game
 
-A simple and straightforward word game at [main.html]()
+A simple and straightforward word game at [main.html](http://ghe1.github.io/AwkWord/main.html)
 
 ## Rules
 Score the highest possible score you can by making words with the given letters in the time allotted.
@@ -26,4 +26,4 @@ You can pick letters by either **clicking** on the letters you want to move, or 
 If your hand is completely hopeless, you can click **ReRoll button** to generate a completely new set of letters. Be careful though, you lose points for rerolling.
 
 ## Ravi Mode
-[mainRavi.html]() will direct you to the Ravi Mode version of the game. Self-explanatory.
+[mainRavi.html](http://ghe1.github.io/AwkWord/mainRavi.html) will direct you to the Ravi Mode version of the game. Self-explanatory.
